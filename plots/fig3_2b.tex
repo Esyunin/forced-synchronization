@@ -1,0 +1,39 @@
+\documentclass[border=2pt,12pt]{standalone}
+\usepackage{pgfplotstable}
+\pgfplotsset{compat=1.15}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage[russian,english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amssymb,
+	amsfonts,
+	amsmath,
+	amsthm}
+\usepackage[T2A]{fontenc}
+\pgfplotsset{width=15cm,height=10cm,compat=newest}
+\begin{document}
+\begin{tikzpicture}[
+]
+	\begin{axis}[
+	table/col sep = comma,
+	xlabel={$f$, кГц},
+	ylabel={$U$, В},
+	minor y tick num=2,
+	minor x tick num=2,
+	grid=both,
+	grid style={line width=.3pt, draw=gray!40},
+	major grid style={line width=.2pt,draw=black!40},
+legend style={
+	at={(0,0)},
+	anchor=north east,at={(axis description cs:1,1.15)}}
+]
+	\pgfplotstableread{task3.2_1Vsync.csv}\exp;
+	\addplot[blue, mark=*,mark size=1.5pt] table [x expr = \thisrowno{0},y expr = \thisrowno{1}] {\exp};
+%	\addplot[red,dashed,forget plot, domain=0.0018*10^3:0.0021*10^3, samples=2]{ -4798*x/10^3 + 8.801};
+%	\pgfplotstableread{task3.2_0.5Vres.csv}\exp;
+	\addplot[red, mark=*,mark size=1.5pt] table [x expr = \thisrowno{0},y expr = \thisrowno{1}] {\exp};
+%	\legend{$\text{режим синхронизации}$,$\text{резонанс}$};
+	\end{axis}
+\end{tikzpicture}
+\end{document}
